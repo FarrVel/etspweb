@@ -12,3 +12,8 @@
 - Prompt: fungsi menghapus transaksi dan detail konformasi data yang akan di hapus
 - Dipakai: hapusTransaksi() dan event delegation di init()
 - Diubah: menambahkan tombol hapus di renderDaftar() dan menambahkan fungsi hapusTransaksi. Serta menambahkan event listener di init()
+
+## W4 - localStorage
+- Prompt: membuat localstorage dengan kode yang ada
+- Dipakai: simpanData(), muatData(), pemanggilan di init()
+- Diubah: menambah try and catch, dan menambahkan muatData sebelum renderDaftar
