@@ -3,6 +3,8 @@ const KATEGORI = {
     pemasukan: ["Uang Belanja", "Lainnya"]
 };
 
+const KEY_TRANSAKSI = "transaksi";
+
 let transaksi = [];
 
 const daftarEl = document.getElementById("daftar-transaksi");
@@ -22,6 +24,24 @@ function isiKategori() {
 
 function tanggalHariIni() {
     return new Date().toLocaleDateString("en-CA"); 
+}
+
+function simpanData() {
+    localStorage.setItem(KEY_TRANSAKSI, JSON.stringify(transaksi));
+}
+
+function muatData() {
+    const mentah = localStorage.getItem(KEY_TRANSAKSI);
+    if (mentah === null) {
+        transaksi = [];
+    return;
+    }
+    try {
+        transaksi = JSON.parse(mentah);
+    } catch (e) {
+        console.warn("Data rusak, memakai data kosong.");
+    transaksi = [];
+    }
 }
 
 function formatRupiah(angka) {
@@ -49,9 +69,26 @@ function renderDaftar () {
     const tanda = t.jenis === "pemasukan" ? "+" : "-";
     const teks = t.tanggal + " | " + t.kategori + " | " + tanda + formatRupiah(t.nominal);
     item.textContent = t.catatan ? teks + " | " + t.catatan : teks;
-
+        const tombolHapus = document.createElement("button");
+    tombolHapus.textContent = "Hapus";
+    tombolHapus.type = "button";
+    tombolHapus.dataset.id = t.id;
+    item.appendChild(tombolHapus);
     daftarEl.appendChild(item);
     });
+}
+
+function hapusTransaksi(id) {
+    const yakin = confirm("Yakin ingin menghapus transaksi ini?");
+    if (!yakin) {
+    return;
+    }
+
+    transaksi = transaksi.filter(function (t) {
+    return t.id !== id;
+    });
+    simpanData();
+    renderDaftar();
 }
 
 function tambahTransaksi(event) {
@@ -67,6 +104,7 @@ function tambahTransaksi(event) {
     };
 
     transaksi.push(baru);
+    simpanData();
     renderDaftar();
 
     formEl.reset();
@@ -76,9 +114,16 @@ function tambahTransaksi(event) {
 
 function init() {
     document.getElementById("tanggal").value = tanggalHariIni();
+    muatData();
     renderDaftar();
     jenisEl.addEventListener("change", isiKategori);
     formEl.addEventListener("submit", tambahTransaksi);
+
+    daftarEl.addEventListener("click", function (event) {
+    if (event.target.tagName === "BUTTON") {
+        hapusTransaksi(Number(event.target.dataset.id));
+    }
+    });
 }
 
 init();
