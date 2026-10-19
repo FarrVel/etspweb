@@ -22,3 +22,8 @@
 - Prompt: fungsi ringkasan dengan menampilkan pemasukan, pengeluaran, dan sisa saldo
 - Dipakai: hitungRingkasan(), renderRingkasan() dan pemanggilannya
 - Diubah: Menambahkan section ringkasan di html, menambahkan referensi elemen di script.js, menambahkan dua fungsi baru yaitu hitungRingkasan dan renderRingkasan, serta menambahkan renderRingkasan() di setiap renderDaftar()
+
+## W6 - Validasi form
+- Prompt: fungsi  validasi form di halaman
+- Dipakai: validasiForm(), tampilkanError(), perubahan di tambahTransaksi()
+- Diubah: menambahkan tempat untuk pesan errornya, menambahkan referensi elemen, dan menambahkan dua fungsi yaitu validasiForm dan tampilkanError. Mengubah fungsi tambahTransaksi, menambahkan validasi form, dan reset untuk tanggal.
