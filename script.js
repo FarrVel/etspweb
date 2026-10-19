@@ -14,6 +14,7 @@ const kategoriEl = document.getElementById("kategori");
 const totalPemasukanEl = document.getElementById("total-pemasukan");
 const totalPengeluaranEl = document.getElementById("total-pengeluaran");
 const saldoEl = document.getElementById("saldo");
+const pesanErrorEl = document.getElementById("pesan-error");
 
 function isiKategori() {
     kategoriEl.innerHTML = "";
@@ -118,26 +119,63 @@ function hapusTransaksi(id) {
     renderRingkasan();
 }
 
+function validasiForm(data) {
+    const error = [];
+
+    if (data.tanggal === "") {
+        error.push("Tanggal wajib diisi.");
+    }
+    if (data.kategori === "") {
+        error.push("Kategori wajib dipilih.");
+    }
+    if (data.nominalMentah.trim() === "") {
+        error.push("Nominal wajib diisi.");
+    } else if (isNaN(Number(data.nominalMentah)) || Number(data.nominalMentah) <= 0) {
+        error.push("Nominal harus berupa angka lebih dari 0.");
+    }
+
+    return error;
+}
+
+function tampilkanError(daftarError) {
+    pesanErrorEl.textContent = daftarError.join(" ");
+}
+
 function tambahTransaksi(event) {
     event.preventDefault();
 
-    const baru = {
-    id: Date.now(),
+    const input = {
     tanggal: document.getElementById("tanggal").value,
     jenis: jenisEl.value,
     kategori: kategoriEl.value,
-    nominal: Number(document.getElementById("nominal").value),
+    nominalMentah: document.getElementById("nominal").value,
     catatan: document.getElementById("catatan").value
+    };
+
+    const error = validasiForm(input);
+    if (error.length > 0) {
+    tampilkanError(error);
+        return;    }
+    tampilkanError([]);
+
+    const baru = {
+    id: Date.now(),
+    tanggal: input.tanggal,
+    jenis: input.jenis,
+    kategori: input.kategori,
+    nominal: Number(input.nominalMentah),
+    catatan: input.catatan
     };
 
     transaksi.push(baru);
     simpanData();
-    renderDaftar();
-    renderRingkasan();
 
     formEl.reset();
     document.getElementById("tanggal").value = tanggalHariIni();
     isiKategori();
+
+    renderDaftar();
+    renderRingkasan();
 }
 
 function init() {
