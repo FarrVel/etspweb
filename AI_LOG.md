@@ -17,3 +17,8 @@
 - Prompt: membuat localstorage dengan kode yang ada
 - Dipakai: simpanData(), muatData(), pemanggilan di init()
 - Diubah: menambah try and catch, dan menambahkan muatData sebelum renderDaftar
+
+## W5 - Ringkasan
+- Prompt: fungsi ringkasan dengan menampilkan pemasukan, pengeluaran, dan sisa saldo
+- Dipakai: hitungRingkasan(), renderRingkasan() dan pemanggilannya
+- Diubah: Menambahkan section ringkasan di html, menambahkan referensi elemen di script.js, menambahkan dua fungsi baru yaitu hitungRingkasan dan renderRingkasan, serta menambahkan renderRingkasan() di setiap renderDaftar()

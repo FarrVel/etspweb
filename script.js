@@ -11,6 +11,9 @@ const daftarEl = document.getElementById("daftar-transaksi");
 const formEl = document.getElementById("form-transaksi");
 const jenisEl = document.getElementById("jenis");
 const kategoriEl = document.getElementById("kategori");
+const totalPemasukanEl = document.getElementById("total-pemasukan");
+const totalPengeluaranEl = document.getElementById("total-pengeluaran");
+const saldoEl = document.getElementById("saldo");
 
 function isiKategori() {
     kategoriEl.innerHTML = "";
@@ -78,6 +81,29 @@ function renderDaftar () {
     });
 }
 
+function hitungRingkasan() {
+    const totalPemasukan = transaksi
+        .filter(function (t) { return t.jenis === "pemasukan"; })
+        .reduce(function (jumlah, t) { return jumlah + t.nominal; }, 0);
+
+    const totalPengeluaran = transaksi
+        .filter(function (t) { return t.jenis === "pengeluaran"; })
+        .reduce(function (jumlah, t) { return jumlah + t.nominal; }, 0);
+
+    return {
+        pemasukan: totalPemasukan,
+        pengeluaran: totalPengeluaran,
+        saldo: totalPemasukan - totalPengeluaran
+    };
+}
+
+function renderRingkasan() {
+    const r = hitungRingkasan();
+    totalPemasukanEl.textContent = formatRupiah(r.pemasukan);
+    totalPengeluaranEl.textContent = formatRupiah(r.pengeluaran);
+    saldoEl.textContent = formatRupiah(r.saldo);
+}
+
 function hapusTransaksi(id) {
     const yakin = confirm("Yakin ingin menghapus transaksi ini?");
     if (!yakin) {
@@ -89,6 +115,7 @@ function hapusTransaksi(id) {
     });
     simpanData();
     renderDaftar();
+    renderRingkasan();
 }
 
 function tambahTransaksi(event) {
@@ -106,6 +133,7 @@ function tambahTransaksi(event) {
     transaksi.push(baru);
     simpanData();
     renderDaftar();
+    renderRingkasan();
 
     formEl.reset();
     document.getElementById("tanggal").value = tanggalHariIni();
@@ -116,6 +144,7 @@ function init() {
     document.getElementById("tanggal").value = tanggalHariIni();
     muatData();
     renderDaftar();
+    renderRingkasan();
     jenisEl.addEventListener("change", isiKategori);
     formEl.addEventListener("submit", tambahTransaksi);
 
