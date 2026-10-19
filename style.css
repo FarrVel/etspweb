@@ -1,0 +1,220 @@
+:root {
+    --gelap: #021024;
+    --tua: #052659;
+    --sedang: #5483B3;
+    --lembut: #7DA0CA;
+    --utama: #C1E8FF;
+    --putih: #ffffff;
+    --kartu: #f4faff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    line-height: 1.4;
+    color: var(--gelap);
+    background: var(--utama);
+}
+
+main {
+    max-width: 430px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding: 24px 16px 32px;
+}
+
+h1 {
+    margin: 0 0 18px;
+    font-size: 1.4rem;
+    color: var(--gelap);
+}
+
+h2 {
+    margin: 0 0 12px;
+    font-size: 1.05rem;
+    color: var(--gelap);
+}
+
+#ringkasan {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 22px 18px 18px;
+    border-radius: 24px;
+    color: var(--lembut);
+    background:
+        radial-gradient(circle at 90% 0%, rgba(84, 131, 179, 0.45), transparent 55%),
+        linear-gradient(160deg, var(--tua), var(--gelap));
+    box-shadow: 0 10px 24px rgba(2, 16, 36, 0.3);
+}
+
+#ringkasan div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 12px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    background: rgba(193, 232, 255, 0.1);
+}
+
+#ringkasan strong {
+    font-size: 1rem;
+    color: var(--putih);
+    overflow-wrap: anywhere;
+}
+
+#ringkasan div:nth-child(3) {
+    grid-column: 1 / -1;
+    order: -1;
+    align-items: center;
+    padding: 4px 0 10px;
+    background: none;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+#ringkasan div:nth-child(3) strong {
+    font-size: 2rem;
+    color: var(--utama);
+}
+
+#form-transaksi {
+    display: flex;
+    flex-direction: column;
+    padding: 18px;
+    border-radius: 24px;
+    background: var(--putih);
+    box-shadow: 0 6px 18px rgba(5, 38, 89, 0.12);
+}
+
+#form-transaksi > label { order: 1; }
+#form-transaksi > #pesan-error { order: 2; }
+#form-transaksi > button[type="submit"] { order: 3; }
+#form-transaksi > h2 {
+    order: 4;
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px solid var(--utama);
+}
+#form-transaksi > #daftar-transaksi { order: 5; }
+
+label {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--tua);
+}
+
+input, select {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+    padding: 11px 12px;
+    font-size: 16px;
+    font-family: inherit;
+    color: var(--gelap);
+    background: var(--kartu);
+    border: 1.5px solid var(--utama);
+    border-radius: 14px;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--sedang);
+    box-shadow: 0 0 0 3px rgba(125, 160, 202, 0.35);
+}
+
+#pesan-error {
+    min-height: 1.2em;
+    margin: 0 0 8px;
+    font-size: 0.85rem;
+    color: #c0392b;
+}
+
+button {
+    font-family: inherit;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 999px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 13px;
+    font-weight: 600;
+    color: var(--utama);
+    background: var(--gelap);
+    box-shadow: 0 6px 14px rgba(2, 16, 36, 0.25);
+}
+
+button[type="submit"]:hover { background: var(--tua); }
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    padding: 11px 12px;
+    font-size: 0.85rem;
+    background: var(--kartu);
+    border-left: 4px solid var(--lembut);
+    border-radius: 14px;
+    overflow-wrap: anywhere;
+}
+
+li.pemasukan { border-left-color: var(--sedang); }
+li.pengeluaran { border-left-color: var(--gelap); }
+
+li button {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--tua);
+    background: var(--utama);
+}
+
+li button:hover {
+    color: var(--utama);
+    background: var(--tua);
+}
+
+#budget {
+    margin-bottom: 20px;
+    padding: 18px;
+    border-radius: 24px;
+    background: var(--putih);
+    box-shadow: 0 6px 18px rgba(5, 38, 89, 0.12);
+}
+
+#pesan-budget {
+    min-height: 1.2em;
+    margin: 0 0 8px;
+    font-size: 0.85rem;
+    color: #c0392b;
+}
+
+#budget button[type="submit"] { margin-top: 4px; }
+
+.budget-aman    { color: var(--tua); border-left-color: var(--sedang); }
+.budget-dekat { color: #b9770e; font-weight: 700; border-left-color: #e0a526; }
+.budget-lewat { color: #c0392b; font-weight: 700; border-left-color: #c0392b; }
+
+@media (max-width: 380px) {
+    main { padding: 16px 12px 24px; }
+    #ringkasan div:nth-child(3) strong { font-size: 1.7rem; }
+    li { font-size: 0.8rem; }
+}
